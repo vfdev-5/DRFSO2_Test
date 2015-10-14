@@ -1,0 +1,13 @@
+# Python 
+*.pyc
+
+# Idea
+.idea
+
+# Local DB files
+media/*.*
+
+# Mac sheet
+.DS_Store
+
+

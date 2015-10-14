@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+
+<h1>Django rest-framework Social Oauth2 test</h1>
+
+
+<p>User : {{ user }} </p>
+
+{% if user.is_authenticated %}
+
+
+<p>User is signed in</p>
+<a href="{% url 'logout' %}">Logout</a>
+
+{% else %}
+
+<a href="/auth/login/MyOAuth2/?next=/">Login</a>
+
+{% endif %}
+
+
+</body>
+</html>
