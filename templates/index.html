@@ -26,6 +26,8 @@
 
 {% else %}
 
+<p><a href="{% url 'register' %}">Register</a></p>
+
 <p><a href="/auth/login/LocalOAuth2/?next={% url 'profile' %}">Login</a></p>
 
 <p><a href="/auth/login/github/?next={% url 'profile' %}">Login with Github</a></p>
