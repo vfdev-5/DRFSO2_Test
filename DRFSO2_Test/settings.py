@@ -97,10 +97,37 @@ REST_FRAMEWORK = {
 }
 
 AUTHENTICATION_BACKENDS = (
-   'DRFSO2_Test.MyOAuth2.MyOAuth2',
+
+    # Github OAuth2
+    'social.backends.github.GithubOAuth2',
+    # Local OAuth2
+   'DRFSO2_Test.LocalOAuth2.LocalOAuth2',
    'rest_framework_social_oauth2.backends.DjangoOAuth2',
+
    'django.contrib.auth.backends.ModelBackend',
 )
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    # 'social.pipeline.mail.mail_validation',
+    # 'social.pipeline.social_auth.associate_by_email',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+    # Local step
+    'DRFSO2_Test.auth_pipeline.redirect_with_access_token'
+)
+
+# This is a url name (used with reverse(url_name)) used in the custom pipeline step : 'DRFSO2_Test.auth_pipeline.redirect_with_access_token'
+# to determine on which url add access_token, backend, expires as parameters
+# and check whether login procudere final redirection is going to this url
+REDIRECT_WITH_ACCESS_TOKEN_URL_NAME = 'profile'
+
 
 
 # Internationalization
@@ -125,6 +152,11 @@ STATIC_URL = '/static/'
 SOCIAL_AUTH_DJANGO_KEY="pzPkzqi8haK3ob96ff8RxSqIzrvWoq3PzZMuv3Us"
 SOCIAL_AUTH_DJANGO_SECRET="i37vk0FDkQF41fCOWXBuJ7zc3KSLpyRofLACn0hApXjWUjcGbjoDkHYXMqptNE4K1IFDPtS7elzc0ysWDPGaakPHzywYHTWivzXzE2teQYN5BlIm7pxyZOxxsCt8HAGR"
 
-SOCIAL_AUTH_MYOAUTH2_KEY="pzPkzqi8haK3ob96ff8RxSqIzrvWoq3PzZMuv3Us"
-SOCIAL_AUTH_MYOAUTH2_SECRET="i37vk0FDkQF41fCOWXBuJ7zc3KSLpyRofLACn0hApXjWUjcGbjoDkHYXMqptNE4K1IFDPtS7elzc0ysWDPGaakPHzywYHTWivzXzE2teQYN5BlIm7pxyZOxxsCt8HAGR"
+SOCIAL_AUTH_LOCALOAUTH2_KEY="pzPkzqi8haK3ob96ff8RxSqIzrvWoq3PzZMuv3Us"
+SOCIAL_AUTH_LOCALOAUTH2_SECRET="i37vk0FDkQF41fCOWXBuJ7zc3KSLpyRofLACn0hApXjWUjcGbjoDkHYXMqptNE4K1IFDPtS7elzc0ysWDPGaakPHzywYHTWivzXzE2teQYN5BlIm7pxyZOxxsCt8HAGR"
 
+# Github configuration
+SOCIAL_AUTH_GITHUB_KEY = 'd8b005cb7f3a27b4d7f7'
+SOCIAL_AUTH_GITHUB_SECRET = 'a68c6b3a291414de4fabd119ad85ee5c576603fd'
+
+LOCALOAUTH2_API_URL = 'http://127.0.0.1:8000'
