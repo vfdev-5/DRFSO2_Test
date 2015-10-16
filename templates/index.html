@@ -10,6 +10,7 @@
 
 <p>User : {{ user }} </p>
 
+
 {% if user.is_authenticated %}
 
 <h2>Welcome</h2>
@@ -19,6 +20,14 @@
     <p>Last name : {{user.last_name}} </p>
     <p>email : {{user.email}} </p>
     <p>Joined : {{user.date_joined}} </p>
+
+    <hr>
+
+    <p>Access token : {{access_token}}</p>
+    <p>Provider : {{provider}}</p>
+    <p>Expires : {{expires}}</p>
+
+    <hr>
 </b>
 
 
@@ -28,9 +37,9 @@
 
 <p><a href="{% url 'register' %}">Register</a></p>
 
-<p><a href="/auth/login/LocalOAuth2/?next={% url 'profile' %}">Login</a></p>
+<p><a href="{% url 'login' %}?next=/">Login</a></p>
 
-<p><a href="/auth/login/github/?next={% url 'profile' %}">Login with Github</a></p>
+<p><a href="/auth/login/github/?next=/">Login with Github</a></p>
 
 {% endif %}
 

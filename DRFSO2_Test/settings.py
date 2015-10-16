@@ -39,9 +39,11 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     # test
+    'rest_framework',
     'oauth2_provider',
     'social.apps.django_app.default',
     'rest_framework_social_oauth2',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -94,6 +96,9 @@ REST_FRAMEWORK = {
         'oauth2_provider.ext.rest_framework.OAuth2Authentication',
         'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
 }
 
 AUTHENTICATION_BACKENDS = (
@@ -101,10 +106,10 @@ AUTHENTICATION_BACKENDS = (
     # Github OAuth2
     'social.backends.github.GithubOAuth2',
     # Local OAuth2
-   'DRFSO2_Test.LocalOAuth2.LocalOAuth2',
-   'rest_framework_social_oauth2.backends.DjangoOAuth2',
+    #'DRFSO2_Test.LocalOAuth2.LocalOAuth2',
+    #'rest_framework_social_oauth2.backends.DjangoOAuth2',
 
-   'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 SOCIAL_AUTH_PIPELINE = (
@@ -149,11 +154,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-SOCIAL_AUTH_DJANGO_KEY="pzPkzqi8haK3ob96ff8RxSqIzrvWoq3PzZMuv3Us"
-SOCIAL_AUTH_DJANGO_SECRET="i37vk0FDkQF41fCOWXBuJ7zc3KSLpyRofLACn0hApXjWUjcGbjoDkHYXMqptNE4K1IFDPtS7elzc0ysWDPGaakPHzywYHTWivzXzE2teQYN5BlIm7pxyZOxxsCt8HAGR"
+# SOCIAL_AUTH_DJANGO_KEY="pzPkzqi8haK3ob96ff8RxSqIzrvWoq3PzZMuv3Us"
+# SOCIAL_AUTH_DJANGO_SECRET="i37vk0FDkQF41fCOWXBuJ7zc3KSLpyRofLACn0hApXjWUjcGbjoDkHYXMqptNE4K1IFDPtS7elzc0ysWDPGaakPHzywYHTWivzXzE2teQYN5BlIm7pxyZOxxsCt8HAGR"
 
-SOCIAL_AUTH_LOCALOAUTH2_KEY="pzPkzqi8haK3ob96ff8RxSqIzrvWoq3PzZMuv3Us"
-SOCIAL_AUTH_LOCALOAUTH2_SECRET="i37vk0FDkQF41fCOWXBuJ7zc3KSLpyRofLACn0hApXjWUjcGbjoDkHYXMqptNE4K1IFDPtS7elzc0ysWDPGaakPHzywYHTWivzXzE2teQYN5BlIm7pxyZOxxsCt8HAGR"
+# SOCIAL_AUTH_LOCALOAUTH2_KEY="pzPkzqi8haK3ob96ff8RxSqIzrvWoq3PzZMuv3Us"
+# SOCIAL_AUTH_LOCALOAUTH2_SECRET="i37vk0FDkQF41fCOWXBuJ7zc3KSLpyRofLACn0hApXjWUjcGbjoDkHYXMqptNE4K1IFDPtS7elzc0ysWDPGaakPHzywYHTWivzXzE2teQYN5BlIm7pxyZOxxsCt8HAGR"
 
 # Github configuration
 SOCIAL_AUTH_GITHUB_KEY = 'd8b005cb7f3a27b4d7f7'

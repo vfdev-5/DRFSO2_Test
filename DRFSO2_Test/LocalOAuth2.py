@@ -42,9 +42,6 @@ class LocalOAuth2(BaseOAuth2):
 
     def user_data(self, access_token, *args, **kwargs):
         """Loads user data from service"""
-        print "LocalOAuth2.user_data: "
-        print "args:", args
-        print "kwargs:", kwargs
         user = kwargs.get('user', None)
         data = {}
         if user:

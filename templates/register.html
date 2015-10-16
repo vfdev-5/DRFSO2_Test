@@ -9,7 +9,7 @@
 <h1>Create an account</h1>
 
 {% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
+<p>{{form.errors}}</p>
 {% endif %}
 
 <form action="" method="post">
@@ -18,6 +18,10 @@
         <tr>
             <td>{{ form.username.label_tag }}</td>
             <td>{{ form.username }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.email.label_tag }}</td>
+            <td>{{ form.email }}</td>
         </tr>
         <tr>
             <td>{{ form.password1.label_tag }}</td>

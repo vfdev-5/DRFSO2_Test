@@ -3,12 +3,12 @@
 
 URL="http://127.0.0.1:8000/auth/token/"
 
-client_id="X77NW6JwLvdWJk4q49ycM7QgDGgNujcnvP4Jn8ik"
-client_secret="4bJEKqU10Sp7skwgoDfK6TzvljsiV1pOGgulSdnO6OdRiSAxQh7AFAsb9RRDlxEMWfYHhwvXiYXUIfNIUbRy5GiLXaKblXTzsicdLZepdg3ZMYEjMQLwI5BKF2sZuPTU"
+client_id="KSo05DIhGLGiKcJuraW0hvORl68WyfhBUhrjkZoE"
+client_secret="C5tdn1Q0NW95sd8MmJFm64SObyjGUv1pnXmCHebJ1hSkWHKXQqR3OhJTLHPAoMJVaKpfRM59iy29z7WpIQsZyGrH670FgZ9R5FeHzKU4tyuAvmq9t5IpNn6zGEZlwSzW"
 
 # Existing user
-username="userone"
-password="123"
+username="userthree"
+password="345"
 
 curl -vvv -X POST -d "client_id=${client_id}&client_secret=${client_secret}&grant_type=password&username=${username}&password=${password}" ${URL}
 echo
