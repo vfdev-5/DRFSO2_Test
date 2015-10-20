@@ -14,8 +14,9 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
-# DOT
-from oauthlib.oauth2.rfc6749.tokens import BearerToken
+# Oauth2 provider
+from oauth2_provider.views.mixins import OAuthLibMixin
+from oauth2_provider.oauth2_backends import OAuthLibCore
 from oauthlib.common import Request
 
 # ------- Views -------
@@ -65,14 +66,16 @@ def index(request, template_name='index.html'):
             #         return headers
             #
             #
-            uri = None
-            body = None
-            headers = None
-            token_request = Request(uri, http_method='POST', body=body, headers=headers)
-            token_handler = BearerToken()
-            access_token = token_handler.create_token(request)
-            provider = "Local"
-
+            # uri = u'/auth/token/'
+            # body = None
+            # headers = None
+            # token_request = Request(uri, http_method='POST', body=body, headers=headers)
+            #
+            # oauth_core = OAuthLibMixin.get_oauthlib_core()
+            # server = oauth_core.server
+            # token_handler = server.default_token_type
+            # access_token = token_handler.create_token(token_request)
+            # provider = "Local"
             pass
 
         if not access_token or not provider:
