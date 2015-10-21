@@ -103,25 +103,75 @@ context = {
 It can be done with a simple html form
 
 ### 2.2) Obtain the access token for a local user
-For that user need to login :
 
+For that user need to login : configure url to django.contrib.auth.views.login with a custom template html
+```
+url(r'^login/$', views.login, {'template_name': 'login.html'}, name='login'),
+```
+and redirect the link to the main page.
+
+In the main page django view code to get access token should be separated for social and local users
+```
+try:
+    provider = request.session['social_auth_last_login_backend']
+    social = user.social_auth.get(provider=provider)
+    access_token = social.extra_data['access_token']
+    expires = social.extra_data['expires']
+except KeyError:
+    print "This is an ordinary user without social network backend"
+    # Issue an access_token
+    token = get_or_create_token(user)
+    if token is not None:
+        access_token = token.token
+        provider = None
+        expires = token.expires
+```
+
+In the method 'get_or_create_token' find not expired access tokens using 'oauth2_provider.models.AccessToken' :
+```
+application = Application.objects.get(name="Local OAuth2 Server with Password")
+tokens = AccessToken.objects.filter(user=user, expires__gt=datetime.now(), application=application)
+```
+if no tokens found then create one with a refresh token
 
 ### 3) Access api protected resources
+This can be done using ajax or whatever other tools that can send requests to the urls. For example, using jquery $.ajax :
+#### For a local user :
+```
+var headers = {"Authorization": "Bearer " + token};
+var request = $.ajax({
+    url: '/api/protected/',
+    method: "GET",
+    headers: headers
+}).done(function( msg ) {
+    // Do something with the resulting message object
+});
+```
+#### For a social network user :
+```
+var headers = {"Authorization": "Bearer github " + token};
+var request = $.ajax({
+    url: '/api/protected/',
+    method: "GET",
+    headers: headers
+}).done(function( msg ) {
+    // Do something with the resulting message object
+});
+```
 
 
 
 
+## Open questions :
 
+- How to issue a token for a local user
+-> Create token using Application, AccessToken etc
 
-## Login user
+- Mobile part should display only its own access_tokens
+-- need convert 3rdparty tokens to local tokens
 
-Idea is to login with
-- a local account (e.g. userone:123)
-- a social network account (Github)
+- How to use refresh tokens
+- How to remove expired tokens, https://github.com/evonove/django-oauth-toolkit/issues/148
 
-and get a access_token/expires/provider from OAuth2 providers
-
-## Register user
-
-- for a social network account it work automatically
+- Mobile / API / Django / 3rd party OAuth workflow, http://stackoverflow.com/questions/27051209/oauth2-token-authentication-using-django-oauth-toolkit-and-python-social-auth
 

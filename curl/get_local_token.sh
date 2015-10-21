@@ -13,3 +13,7 @@ password="345"
 curl -vvv -X POST -d "client_id=${client_id}&client_secret=${client_secret}&grant_type=password&username=${username}&password=${password}" ${URL}
 echo
 
+
+
+## From https://github.com/evonove/django-oauth-toolkit/issues/147
+#curl -v -X POST -u "${userthree}:${password}" -d "grant_type=client_credentials" ${URL}

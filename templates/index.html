@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
 
 <h1>Django rest-framework Social Oauth2 test</h1>
@@ -23,12 +24,73 @@
 
     <hr>
 
+    <h3>API access result : </h3>
+
+    <label>Open :</label><p id="open"></p>
+    <label>Protected :</label><p id="protected"></p>
+
+
+    <script type="text/javascript">
+
+        $(function() {
+
+            request("/api/", $("#open"));
+
+            var authorization = "Bearer ";
+            {% if provider %}
+            var provider = "{{provider}}";
+            if (provider) {
+                authorization += provider + " ";
+            }
+            {% endif %}
+            authorization += "{{access_token}}";
+            request("/api/protected", $("#protected"), authorization);
+        });
+
+
+        var request = function(url, output, authorization=null) {
+            console.log("Request api data");
+
+            var headers = {}
+            if (authorization != null) {
+                headers = {"Authorization": authorization};
+            }
+
+            console.log("headers :" + headers["Authorization"]);
+
+            var request = $.ajax({
+
+                url: url,
+                method: "GET",
+                headers: headers
+
+            }).done(function( msg ) {
+
+                output.text( msg['message'] );
+
+            }).fail(function( jqXHR, textStatus ) {
+
+                output.text( textStatus );
+
+            });
+
+        };
+
+
+
+
+    </script>
+
+    <hr>
+
     <p>Access token : {{access_token}}</p>
     <p>Provider : {{provider}}</p>
     <p>Expires : {{expires}}</p>
 
     <hr>
 </b>
+
+
 
 
 <a href="{% url 'logout' %}">Logout</a>
